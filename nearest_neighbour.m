@@ -1,10 +1,8 @@
-% Get a random number from the test data
-TestIndex = floor(rand() * 2007);
-TestNumber = testDigits(:,:,TestIndex);
+function[Guess]=nearest_neighbour(TestNumber, TrainDigits, TrainAns, k)
 
-% Load and reshape the training data into a 256 by 7921 matrix 
+% Reshape the training data into a 256 by 7921 matrix 
 % where every column represents a number
-TrainVectors = reshape(trainDigits, [256, 7291]);
+TrainVectors = reshape(TrainDigits, [256, 7291]);
 
 % Reshape the test number into a vector in R256
 TestVector = reshape(TestNumber, [256, 1]);
@@ -21,17 +19,8 @@ Norm = vecnorm(Difference);
 
 % Get the index of the smallest k values in the list of dot products
 % and find their asociated values in the answer sheet
-k = 2;
 NearestIndices = find(ismember(Norm, mink(Norm, k)), k);
-NearestValues = trainAns();
+NearestValues = TrainAns(NearestIndices);
 
 % Get the most occuring number from the list of values
-Guess = mode(Nearest);
-
-% Get the correct answer from the answer sheet
-Answer = testAns(TestIndex);
-
-% Display the image and answer from the algoritm
-ima(TestNumber);
-disp(['Guess: ', num2str(Guess)]);
-disp(['Correct Answer: ', num2str(Answer)]);
+Guess = mode(NearestValues);
