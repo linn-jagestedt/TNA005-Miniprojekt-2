@@ -1,5 +1,6 @@
 % Get a random number from the test data
-TestNumber = testDigits(:,:,floor(rand() * 2007));
+TestIndex = floor(rand() * 2007);
+TestNumber = testDigits(:,:,TestIndex);
 
 % Load and reshape the training data into a 256 by 7921 matrix 
 % where every column represents a number
@@ -19,11 +20,13 @@ end
 Norm = vecnorm(Difference); 
 
 % Get the index of the smallest value in the list of dot products
-Index = find(Norm==min(Norm)); 
+GuessIndex = find(Norm==min(Norm)); 
 
 % Get the answer from the answer sheet
-Answer = trainAns(Index);
+Guess = trainAns(GuessIndex); 
+Answer = testAns(TestIndex);
 
 % Display the image and answer from the algoritm
 ima(TestNumber);
-disp(Answer);
+disp(['Guess: ', num2str(Guess)]);
+disp(['Answer: ', num2str(Answer)]);
