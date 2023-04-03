@@ -23,10 +23,10 @@ Norm = vecnorm(Difference);
 % and find their asociated values in the answer sheet
 k = 2;
 NearestIndices = find(ismember(Norm, mink(Norm, k)), k);
-NearestValues = trainAns(NearestIndices);
+NearestValues = trainAns();
 
 % Get the most occuring number from the list of values
-Guess = mode(NearestValues);
+Guess = mode(Nearest);
 
 % Get the correct answer from the answer sheet
 Answer = testAns(TestIndex);
