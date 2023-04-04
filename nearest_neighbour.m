@@ -1,11 +1,4 @@
-function[Guess]=nearest_neighbour(TestNumber, TrainDigits, TrainAns, k)
-
-% Reshape the training data into a 256 by 7921 matrix 
-% where every column represents a number
-TrainVectors = reshape(TrainDigits, [256, 7291]);
-
-% Reshape the test number into a vector in R256
-TestVector = reshape(TestNumber, [256, 1]);
+function[Guess]=nearest_neighbour(TestVector, TrainVectors, TrainAns, k)
 
 % Calculate difference between the train vectors and the test vector
 Difference = TrainVectors - TestVector;

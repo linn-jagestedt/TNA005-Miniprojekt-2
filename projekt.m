@@ -1,15 +1,22 @@
+% Reshape the training data into a 256 by 7921 matrix 
+% where every column represents a number
+TrainVectors = reshape(trainDigits, [256, 7291]);
+
 disp("Nearest Neighbour");
 
-for k = 1:10
-    success = 0;
-    for i = 1:size(testDigits,3)
-        Guess = nearest_neighbour(testDigits(:,:,i), trainDigits, trainAns, k);
-        Answer = testAns(i);
+bound = 4;
+success = zeros(bound,1);
 
-        if (Answer == Guess)
-            success = success + 1;
+for i = 1:size(testDigits,3)
+
+    % Reshape the test number into a vector in R256
+    TestVector = reshape(testDigits(:,:,i), [256, 1]);
+
+    for k = 1:bound        
+        if (testAns(i) == nearest_neighbour(TestVector, TrainVectors, trainAns, k))
+            success(k) = success(k) + 1;
         end
     end
-
-    disp(['k=', num2str(k), ': ', num2str(success),'/', num2str(size(testDigits,3)) ,' successes'])
 end
+
+plot(success);
