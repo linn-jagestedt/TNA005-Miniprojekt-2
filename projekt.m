@@ -2,21 +2,25 @@
 % where every column represents a number
 TrainVectors = reshape(trainDigits, [256, 7291]);
 
-disp("Nearest Neighbour");
-
-bound = 4;
-success = zeros(bound,1);
+centr = 1; 
+nearest = zeros(1,1);
 
 for i = 1:size(testDigits,3)
-
     % Reshape the test number into a vector in R256
     TestVector = reshape(testDigits(:,:,i), [256, 1]);
 
-    for k = 1:bound        
+    for k = 1:size(nearest)
         if (testAns(i) == nearest_neighbour(TestVector, TrainVectors, trainAns, k))
-            success(k) = success(k) + 1;
+            nearest(k) = nearest(k) + 1;
         end
+    end
+
+    if (testAns(i) == centroid(TestVector, TrainVectors, trainAns))
+        centr = centr + 1;
     end
 end
 
-plot(success);
+result = nearest;
+result(size(result) + 1) = centr;
+
+bar(result);
