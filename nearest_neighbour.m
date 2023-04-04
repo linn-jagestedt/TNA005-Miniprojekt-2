@@ -11,5 +11,13 @@ Norm = vecnorm(Difference);
 NearestIndices = find(ismember(Norm, mink(Norm, k)), k);
 NearestValues = TrainAns(NearestIndices);
 
-% Get the most occuring number from the list of values
-Guess = mode(NearestValues);
+% Check if there is a single most common digit.
+% If not, take the nearest neighbour.
+Frequency = accumarray(NearestValues+1,1);
+NumberOfModes = sum(Frequency(:) == max(Frequency));
+
+if (NumberOfModes == 1)
+    Guess = find(Frequency==max(Frequency)) - 1;
+else
+    Guess = NearestValues(1);
+end
