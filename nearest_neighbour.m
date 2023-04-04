@@ -8,11 +8,7 @@ TrainVectors = reshape(TrainDigits, [256, 7291]);
 TestVector = reshape(TestNumber, [256, 1]);
 
 % Calculate difference between the train vectors and the test vector
-Difference = zeros(256, 7291);
-
-for i = 1:7291
-    Difference(:,i) = TrainVectors(:,i) - TestVector;
-end
+Difference = TrainVectors - TestVector;
 
 % Calculate the dot product of every column in the matrix (c1 ⋅ c1)
 Norm = vecnorm(Difference); 
