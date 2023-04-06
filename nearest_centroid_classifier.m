@@ -1,4 +1,4 @@
-function[errorrate]=centroid_classifier(TestVectors, testAns, TrainVectors, trainAns)
+function[errorrate]=nearest_centroid_classifier(TestVectors, testAns, TrainVectors, trainAns)
 
     % Calculate Mean vectors
     MeanVectors = zeros(256, 10);

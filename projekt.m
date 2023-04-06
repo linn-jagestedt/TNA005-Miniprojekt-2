@@ -9,6 +9,7 @@ TrainVectors = reshape(trainDigits, [256, 7291]);
 TestVectors = reshape(testDigits, [256, 2007]);
 
 % Nearest Neighbour
+
 itterations = 10;
 nearest = nearest_neighbour(TestVectors, testAns, TrainVectors, trainAns, itterations);
 
@@ -22,8 +23,11 @@ bar(reordercats(categorical(labels), labels), nearest * 100, '');
 ylabel('Error-rate');
 
 % Centroid
-centroid = centroid_classifier(TestVectors, testAns, TrainVectors, trainAns);
+
+centroid = nearest_centroid_classifier(TestVectors, testAns, TrainVectors, trainAns);
+
+labels = {'AVGNN', 'NCC'};
 
 subplot(2,1,2);
-bar(categorical({'NCC'}), centroid * 100);
+bar(reordercats(categorical(labels), labels), [mean(nearest * 100), centroid * 100]);
 ylabel('Error-rate');
