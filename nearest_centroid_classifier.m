@@ -1,20 +1,17 @@
-function[errorrate]=nearest_centroid_classifier(TestVectors, testAns, TrainVectors, trainAns)
-
+function[guesses]=nearest_centroid_classifier(TestVectors, TrainVectors, trainAns)
     % Calculate Mean vectors
     MeanVectors = zeros(256, 10);
+    figure('Name', 'Nearest Centroid Classifier Mean Vectors');
     for i = 1:10
         MeanVectors(:,i) = mean(TrainVectors(:,trainAns == (i - 1)), 2);
+        subplot(2,5, i);
+        ima(reshape(MeanVectors(:, i), [16, 16]));
     end
 
-    errors = 0;
-
+    guesses = zeros(size(TestVectors, 2), 1);
     for i = 1:size(TestVectors, 2)     
-        if (testAns(i) ~= find_nearest(TestVectors(:,i), MeanVectors))
-            errors = errors + 1;
-        end
+        guesses(i) = find_nearest(TestVectors(:,i), MeanVectors);
     end
-
-    errorrate = errors / size(TestVectors,2);
 end
 
 function[Guess]=find_nearest(TestVector, MeanVectors)

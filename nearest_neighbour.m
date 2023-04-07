@@ -1,5 +1,5 @@
-function[errorrates]=nearest_neighbour(TestVectors, testAns, TrainVectors, trainAns, itterations)
-    errors = zeros(itterations, 1);
+function[guesses]=nearest_neighbour(TestVectors, TrainVectors, trainAns, itterations)
+    guesses = zeros(size(TestVectors, 2), itterations);
 
     for i = 1:size(TestVectors, 2) 
         % Calculate difference between the train vectors and the test vector
@@ -9,13 +9,9 @@ function[errorrates]=nearest_neighbour(TestVectors, testAns, TrainVectors, train
         Norm = vecnorm(Difference); 
     
         for k = 1:itterations
-            if (testAns(i) ~= find_nearest(Norm, trainAns, k))
-                errors(k) = errors(k) + 1;
-            end
+            guesses(i, k) = find_nearest(Norm, trainAns, k);
         end
     end
-
-    errorrates = errors / size(TestVectors,2);
 end
 
 function[Guess]=find_nearest(Norm, trainAns, k)
