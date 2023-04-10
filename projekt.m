@@ -31,15 +31,11 @@ ncc_labels = {'NN', 'NCC'};
 
 % Bar plot
 
-figure('Name', 'Error rates');
-
-subplot(2,1,1);
+figure('Name', 'Error Rate for K Nearest Neighbour');
 bar(reordercats(categorical(nn_labels), nn_labels), nn_rates * 100);
-title('Error Rate for K Nearest Neighbour');
 
-subplot(2,1,2);
+figure('Name', 'Error Rate Nearest Neighbour and Nearest Centroid Classifier');
 bar(reordercats(categorical(ncc_labels), ncc_labels), [nn_rates(nn_best) * 100, ncc_rates * 100]);
-title('Error Rate Nearest Neighbour and Nearest Centroid Classifier');
 
 % Examples
 
@@ -56,24 +52,28 @@ ncc_correct = find(ncc_guesses==testAns);
 ncc_correct_threes = find(testAns(ncc_correct)==3);
 
 figure('Name', 'nn wrong');
+sgtitle('Nearest Neighbour', 'FontSize', 20);
 for i = 1:4
     subplot(2,2,i);
     ima(testDigits(:, :, nn_wrong(nn_wrong_threes(i))));
 end
 
 figure('Name', 'nn correct');
+sgtitle('Nearest Neighbour', 'FontSize', 20);
 for i = 1:4
     subplot(2,2,i);
     ima(testDigits(:, :, nn_correct(nn_correct_threes(i))));
 end
 
 figure('Name', 'ncc wrong');
+sgtitle('Nearest Centroid Classifier', 'FontSize', 20);
 for i = 1:4
     subplot(2,2,i);
     ima(testDigits(:, :, ncc_wrong(ncc_wrong_threes(i))));
 end
 
 figure('Name', 'ncc correct');
+sgtitle('Nearest Centroid Classifier', 'FontSize', 20);
 for i = 1:4
     subplot(2,2,i);
     ima(testDigits(:, :, ncc_correct(ncc_correct_threes(i))));
